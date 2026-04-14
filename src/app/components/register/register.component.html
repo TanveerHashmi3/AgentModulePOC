@@ -1,0 +1,282 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Company Registration Form</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="countryId">Country *</label>
+          <select
+            id="countryId"
+            class="form-control"
+            formControlName="countryId"
+            [class.is-invalid]="countryId?.invalid && countryId?.touched"
+          >
+            <option value="">Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.id">
+              {{ country.name }}
+            </option>
+          </select>
+          <div class="error-message" *ngIf="countryId?.invalid && countryId?.touched">
+            Country is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cityId">City *</label>
+          <select
+            id="cityId"
+            class="form-control"
+            formControlName="cityId"
+            [class.is-invalid]="cityId?.invalid && cityId?.touched"
+            [disabled]="!countryId?.value"
+          >
+            <option value="">Select City</option>
+            <option *ngFor="let city of filteredCities" [value]="city.id">
+              {{ city.name }}
+            </option>
+          </select>
+          <div class="error-message" *ngIf="cityId?.invalid && cityId?.touched">
+            City is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="registrationRefNo">Registration Reference No *</label>
+          <input
+            type="text"
+            id="registrationRefNo"
+            class="form-control"
+            formControlName="registrationRefNo"
+            placeholder="Enter Registration Reference No"
+            [class.is-invalid]="registrationRefNo?.invalid && registrationRefNo?.touched"
+          />
+          <div class="error-message" *ngIf="registrationRefNo?.invalid && registrationRefNo?.touched">
+            Registration Reference No is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="companyName">Company Name *</label>
+          <input
+            type="text"
+            id="companyName"
+            class="form-control"
+            formControlName="companyName"
+            placeholder="Enter Company Name"
+            [class.is-invalid]="companyName?.invalid && companyName?.touched"
+          />
+          <div class="error-message" *ngIf="companyName?.invalid && companyName?.touched">
+            Company Name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="companyAddress">Company Address *</label>
+          <textarea
+            id="companyAddress"
+            class="form-control"
+            formControlName="companyAddress"
+            placeholder="Enter Company Address"
+            [class.is-invalid]="companyAddress?.invalid && companyAddress?.touched"
+          ></textarea>
+          <div class="error-message" *ngIf="companyAddress?.invalid && companyAddress?.touched">
+            Company Address is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="landlineNumber">Landline Number</label>
+          <input
+            type="tel"
+            id="landlineNumber"
+            class="form-control"
+            formControlName="landlineNumber"
+            placeholder="Enter Landline Number"
+            [class.is-invalid]="landlineNumber?.invalid && landlineNumber?.touched"
+          />
+          <div class="error-message" *ngIf="landlineNumber?.invalid && landlineNumber?.touched">
+            Invalid phone format
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fax">Fax</label>
+          <input
+            type="tel"
+            id="fax"
+            class="form-control"
+            formControlName="fax"
+            placeholder="Enter Fax Number"
+            [class.is-invalid]="fax?.invalid && fax?.touched"
+          />
+          <div class="error-message" *ngIf="fax?.invalid && fax?.touched">
+            Invalid fax format
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="website">Website</label>
+          <input
+            type="url"
+            id="website"
+            class="form-control"
+            formControlName="website"
+            placeholder="Enter Website URL"
+            [class.is-invalid]="website?.invalid && website?.touched"
+          />
+          <div class="error-message" *ngIf="website?.invalid && website?.touched">
+            Invalid website URL
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="companyEmail">Company Email *</label>
+          <input
+            type="email"
+            id="companyEmail"
+            class="form-control"
+            formControlName="companyEmail"
+            placeholder="Enter Company Email"
+            [class.is-invalid]="companyEmail?.invalid && companyEmail?.touched"
+          />
+          <div class="error-message" *ngIf="companyEmail?.invalid && companyEmail?.touched">
+            <span *ngIf="companyEmail?.errors?.['required']">Company Email is required</span>
+            <span *ngIf="companyEmail?.errors?.['email']">Invalid email format</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="licenseNumber">License Number *</label>
+          <input
+            type="text"
+            id="licenseNumber"
+            class="form-control"
+            formControlName="licenseNumber"
+            placeholder="Enter License Number"
+            [class.is-invalid]="licenseNumber?.invalid && licenseNumber?.touched"
+          />
+          <div class="error-message" *ngIf="licenseNumber?.invalid && licenseNumber?.touched">
+            License Number is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contactPersonName">Contact Person Name *</label>
+          <input
+            type="text"
+            id="contactPersonName"
+            class="form-control"
+            formControlName="contactPersonName"
+            placeholder="Enter Contact Person Name"
+            [class.is-invalid]="contactPersonName?.invalid && contactPersonName?.touched"
+          />
+          <div class="error-message" *ngIf="contactPersonName?.invalid && contactPersonName?.touched">
+            Contact Person Name is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="designation">Designation *</label>
+          <input
+            type="text"
+            id="designation"
+            class="form-control"
+            formControlName="designation"
+            placeholder="Enter Designation"
+            [class.is-invalid]="designation?.invalid && designation?.touched"
+          />
+          <div class="error-message" *ngIf="designation?.invalid && designation?.touched">
+            Designation is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="mobileNumber">Mobile Number *</label>
+          <input
+            type="tel"
+            id="mobileNumber"
+            class="form-control"
+            formControlName="mobileNumber"
+            placeholder="Enter Mobile Number"
+            [class.is-invalid]="mobileNumber?.invalid && mobileNumber?.touched"
+          />
+          <div class="error-message" *ngIf="mobileNumber?.invalid && mobileNumber?.touched">
+            <span *ngIf="mobileNumber?.errors?.['required']">Mobile Number is required</span>
+            <span *ngIf="mobileNumber?.errors?.['pattern']">Invalid mobile number format (minimum 10 digits)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="allowedSubusers">Allowed Subusers *</label>
+          <input
+            type="number"
+            id="allowedSubusers"
+            class="form-control"
+            formControlName="allowedSubusers"
+            placeholder="Enter Allowed Subusers"
+            [class.is-invalid]="allowedSubusers?.invalid && allowedSubusers?.touched"
+          />
+          <div class="error-message" *ngIf="allowedSubusers?.invalid && allowedSubusers?.touched">
+            <span *ngIf="allowedSubusers?.errors?.['required']">Allowed Subusers is required</span>
+            <span *ngIf="allowedSubusers?.errors?.['min']">Must be greater than 0</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="registrationStatus">Registration Status *</label>
+          <select
+            id="registrationStatus"
+            class="form-control"
+            formControlName="registrationStatus"
+            [class.is-invalid]="registrationStatus?.invalid && registrationStatus?.touched"
+          >
+            <option value="">Select Status</option>
+            <option value="PENDING">Pending</option>
+            <option value="APPROVED">Approved</option>
+            <option value="REJECTED">Rejected</option>
+          </select>
+          <div class="error-message" *ngIf="registrationStatus?.invalid && registrationStatus?.touched">
+            Registration Status is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group checkbox">
+          <label for="isActive">
+            <input
+              type="checkbox"
+              id="isActive"
+              formControlName="isActive"
+            />
+            Is Active
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+          Register
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
